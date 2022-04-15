@@ -35,7 +35,7 @@ const NFTCard = ({data}) => {
        width:'100%',
        padding:SIZES.font,
      }}>
-        <NFTTitle /> 
+        <NFTTitle title={data.name} subTitle={data.creator} titleSize={SIZES.large} subTitleSize={SIZES.small} /> 
      </View>
     </View>
   )
