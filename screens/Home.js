@@ -13,7 +13,7 @@ const Home1 = () => {
             {/* getting data from our dummydata rendering name of each item from dummydata providing a unique and
              also showing homeheader component */}
             <FlatList data={NFTData}
-                renderItem={({item}) => <Text>{item.name}</Text> } 
+                renderItem={({item}) => <NFTCard data={item} /> } 
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<HomeHeader />}
