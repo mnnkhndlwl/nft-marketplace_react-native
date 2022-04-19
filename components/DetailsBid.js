@@ -6,9 +6,7 @@ import React from 'react'
 const DetailsBid = () => {
    
   return (
-    <>
-        
-    </>
+    <Text>hi</Text> 
   )
 }
 

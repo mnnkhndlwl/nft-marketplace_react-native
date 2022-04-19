@@ -3,17 +3,78 @@ import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-nati
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
 //we are getting route and navigation as we are using details as screeen
-const Details = ({route,navigation}) => {
+
+const DetailsHeader = ({ data, navigation }) => (
+  <View style={{
+    width: '100%',
+    height: 373
+  }}>
+    <Image
+      source={data.image}
+      resizeMode="cover"
+      style={{ width: '100%', height: '100%' }}
+    />
+  <CircleButton 
+    imgUrl={assets.left}
+    handlePress={()=>navigation.goBack()}
+    left={15}
+    top={StatusBar.currentHeight + 10}
+  />
+  <CircleButton 
+    imgUrl={assets.heart}
+    right={15}
+    top={StatusBar.currentHeight + 10}
+  />
+  </View>
+)
+
+const Details = ({ route, navigation }) => {
   const { data } = route.params; //phle console log route karke dekh useme params milega usee hmare pas object ayega jisse
   //hum apni nft ki details le sakte hai
   return (
-   <SafeAreaView style={{ flex:1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <FocusedStatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
         translucent={true}
       />
-   </SafeAreaView>
+      <View style={{
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        paddingVertical: SIZES.font,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0.5)',
+        zIndex: 1
+      }}>
+        <RectButton
+          minWidth={170}
+          fontSize={SIZES.large}
+          {...SHADOWS.dark}
+        />
+      </View>
+      <FlatList
+        data={data.bids}
+        renderItem={({ item }) => <DetailsBid bid={item} />}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: SIZES.extraLarge * 3,
+        }}
+        ListHeaderComponent={() => (
+          <React.Fragment>
+            <DetailsHeader data={data} navigation={navigation} />
+            <SubInfo />
+            <View style={{
+              padding:SIZES.font
+            }}>
+              <DetailsDesc data={data}/>
+            </View>
+          </React.Fragment>
+        )}
+      />
+    </SafeAreaView>
 
   )
 }
